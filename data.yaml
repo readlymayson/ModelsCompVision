@@ -1,0 +1,8 @@
+path: E:\CodeProjects\ModelsCompVision
+train: dataset_split/train/images
+val: dataset_split/val/images
+test: dataset_split/test/images
+nc: 2
+names:
+- class_0
+- class_1

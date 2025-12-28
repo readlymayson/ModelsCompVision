@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dataset Viewer - Статистика датасета</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='dataset_viewer/css/style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Dataset Viewer</h1>
+        <nav>
+            <a href="/">Галерея</a>
+            <a href="/stats" class="active">Статистика</a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="stats-container">
+            <h2>Статистика датасета</h2>
+
+            <div id="loading" class="loading">Загрузка статистики...</div>
+
+            <div id="stats-content" style="display: none;">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h3>Общая информация</h3>
+                        <div class="stat-item">
+                            <span class="stat-label">Всего изображений:</span>
+                            <span class="stat-value" id="total-images">-</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Валидных изображений:</span>
+                            <span class="stat-value" id="valid-images">-</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Всего аннотаций:</span>
+                            <span class="stat-value" id="total-annotations">-</span>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <h3>Проблемы в датасете</h3>
+                        <div class="stat-item">
+                            <span class="stat-label">Изображений без аннотаций:</span>
+                            <span class="stat-value warning" id="missing-labels">-</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Пустых файлов аннотаций:</span>
+                            <span class="stat-value warning" id="empty-labels">-</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Ошибок в аннотациях:</span>
+                            <span class="stat-value error" id="annotation-errors">-</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stat-card full-width">
+                    <h3>Распределение классов</h3>
+                    <div id="class-distribution">
+                        <div id="class-loading" class="loading">Загрузка распределения классов...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="{{ url_for('static', filename='dataset_viewer/js/main.js') }}"></script>
+    <script>
+        // Инициализация статистики при загрузке страницы
+        document.addEventListener('DOMContentLoaded', function() {
+            initStats();
+        });
+    </script>
+</body>
+</html>
+

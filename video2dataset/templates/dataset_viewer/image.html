@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dataset Viewer - Просмотр изображения</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='dataset_viewer/css/style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Dataset Viewer</h1>
+        <nav>
+            <a href="/">Галерея</a>
+            <a href="/stats">Статистика</a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="image-viewer">
+            <div class="image-controls">
+                <button id="prev-btn" class="btn">← Предыдущее</button>
+                <button id="toggle-annotations-btn" class="btn">Скрыть аннотации</button>
+                <button id="next-btn" class="btn">Следующее →</button>
+                <a href="/" class="btn btn-secondary">← Назад к галерее</a>
+            </div>
+
+            <div class="image-container">
+                <div id="loading" class="loading">Загрузка изображения...</div>
+                <img id="main-image" src="" alt="" style="display: none;">
+            </div>
+
+            <div class="image-info">
+                <h2 id="image-name"></h2>
+                <div class="annotations-info">
+                    <h3>Аннотации</h3>
+                    <div id="annotations-list" class="annotations-list">
+                        <div id="annotations-loading" class="loading">Загрузка аннотаций...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="{{ url_for('static', filename='dataset_viewer/js/main.js') }}"></script>
+    <script>
+        // Инициализация просмотра изображения при загрузке страницы
+        document.addEventListener('DOMContentLoaded', function() {
+            const imageName = '{{ image_name }}';
+            initImageViewer(imageName);
+        });
+    </script>
+</body>
+</html>
+

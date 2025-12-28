@@ -1,0 +1,130 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+venv/
+env/
+ENV/
+.venv/
+.env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Project specific
+# Data files (images, videos, annotations)
+data/images/
+data/videos/
+data/labels/
+data/augmented/
+data/previews/
+data/not_annoyed/
+data/*.cache
+
+# Dataset splits (keep structure, ignore data)
+dataset_split/*/images/
+dataset_split/*/labels/
+dataset_split/*/*.cache
+
+# Test data
+test_data/
+
+# Exported data
+export/
+media/
+
+# Models (can be large)
+models/*.pt
+models/*.onnx
+models/*.engine
+models/*.tflite
+
+# YOLO/Ultralytics specific
+runs/
+weights/
+*.weights
+yolo_*.yaml
+wandb/
+
+# Label Studio specific
+label_studio.sqlite3
+.mydb
+label_studio_data/
+
+# Flask specific
+instance/
+.flaskenv
+*.flaskenv
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+*.tmp
+*.temp
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Configuration files that might contain sensitive data
+config.local.json
+secrets.json
+.env.local
+.env.*.local
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*.ipynb_checkpoints/
+
+# Coverage reports
+.coverage
+coverage.xml
+*.cover
+htmlcov/
+.pytest_cache/
+.cache/
+
+# Windows specific
+desktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+
+
+
+

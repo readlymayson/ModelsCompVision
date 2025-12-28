@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dataset Viewer - Галерея изображений</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='dataset_viewer/css/style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Dataset Viewer</h1>
+        <nav>
+            <a href="/" class="active">Галерея</a>
+            <a href="/stats">Статистика</a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="controls">
+            <div class="search-container">
+                <input type="text" id="search-input" placeholder="Поиск по имени файла..." class="search-input">
+                <button id="search-btn" class="btn">Поиск</button>
+            </div>
+
+            <div class="filter-container">
+                <select id="class-filter" class="class-filter">
+                    <option value="">Все классы</option>
+                </select>
+                <button id="clear-filters-btn" class="btn btn-secondary">Очистить фильтры</button>
+                <button id="clear-cache-btn" class="btn btn-secondary" title="Очистить кэш">🔄</button>
+            </div>
+        </div>
+
+        <div class="gallery-container">
+            <div id="loading" class="loading">Загрузка изображений...</div>
+            <div id="gallery" class="gallery"></div>
+            <div id="pagination" class="pagination"></div>
+        </div>
+    </main>
+
+    <script src="{{ url_for('static', filename='dataset_viewer/js/main.js') }}"></script>
+    <script>
+        // Инициализация галереи при загрузке страницы
+        document.addEventListener('DOMContentLoaded', function() {
+            initGallery();
+        });
+    </script>
+</body>
+</html>
