@@ -2,7 +2,7 @@
 """
 Скрипт для фильтрации датасета с пустыми аннотациями.
 Перемещает изображения и соответствующие аннотационные файлы без аннотаций
-в отдельную папку "неаннотированно".
+в отдельную папку "not_annoyed".
 """
 
 import os
@@ -63,7 +63,7 @@ def create_unannotated_folders(base_dir):
     Args:
         base_dir (str): Базовая директория для создания папок
     """
-    unannotated_dir = os.path.join(base_dir, "неаннотированно")
+    unannotated_dir = os.path.join(base_dir, "not_annoyed")
     images_dir = os.path.join(unannotated_dir, "images")
     labels_dir = os.path.join(unannotated_dir, "labels")
 

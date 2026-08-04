@@ -21,7 +21,7 @@ async function initGallery() {
         populateClassFilter(stats.class_distribution || []);
 
         // Загрузить первую страницу изображений
-        await loadImages(1, '', '', true);
+        await loadImages(1, '', '');
     } catch (error) {
         console.error('Ошибка инициализации галереи:', error);
         showError('Ошибка загрузки галереи');
@@ -47,7 +47,7 @@ function populateClassFilter(classDistribution) {
 }
 
 // Загрузка изображений с пагинацией
-async function loadImages(page = 1, search = '', classFilter = '', forceReload = false) {
+async function loadImages(page = 1, search = '', classFilter = '') {
     if (isLoading) return; // Предотвратить множественные одновременные запросы
 
     const gallery = document.getElementById('gallery');
@@ -59,10 +59,8 @@ async function loadImages(page = 1, search = '', classFilter = '', forceReload =
     // Показать загрузку
     loading.style.display = 'block';
 
-    // Очистить галерею только если это не загрузка следующей страницы
-    if (forceReload) {
-        gallery.innerHTML = '';
-    }
+    // Всегда очищать галерею при загрузке новых изображений
+    gallery.innerHTML = '';
 
     try {
         // Сначала получить общее количество изображений
@@ -105,7 +103,7 @@ async function loadImages(page = 1, search = '', classFilter = '', forceReload =
         currentClassFilter = classFilter;
 
         // Отобразить изображения
-        displayImages(data.images, forceReload);
+        displayImages(data.images);
 
         // Отобразить пагинацию
         displayPagination(data.page, totalPages, totalImages);
@@ -238,7 +236,7 @@ function createPageButton(text, page) {
     const btn = document.createElement('button');
     btn.className = 'page-btn';
     btn.textContent = text;
-    btn.onclick = () => loadImages(page, currentSearch, currentClassFilter, false);
+    btn.onclick = () => loadImages(page, currentSearch, currentClassFilter);
     return btn;
 }
 
@@ -256,7 +254,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (newSearch !== currentSearch) {
                 currentSearch = newSearch;
                 currentPage = 1;
-                loadImages(currentPage, currentSearch, currentClassFilter, true);
+                loadImages(currentPage, currentSearch, currentClassFilter);
             }
         };
 
@@ -273,7 +271,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (newClassFilter !== currentClassFilter) {
                 currentClassFilter = newClassFilter;
                 currentPage = 1;
-                loadImages(currentPage, currentSearch, currentClassFilter, true);
+                loadImages(currentPage, currentSearch, currentClassFilter);
             }
         };
     }
@@ -286,7 +284,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 currentSearch = '';
                 currentClassFilter = '';
                 currentPage = 1;
-                loadImages(currentPage, currentSearch, currentClassFilter, true);
+                loadImages(currentPage, currentSearch, currentClassFilter);
             }
         };
     }
@@ -298,7 +296,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 const data = await response.json();
                 if (data.message) {
                     // Перезагрузить текущую страницу
-                    loadImages(currentPage, currentSearch, currentClassFilter, true);
+                    loadImages(currentPage, currentSearch, currentClassFilter);
                     showMessage('Кэш очищен');
                 } else if (data.error) {
                     throw new Error(data.error);

@@ -173,6 +173,8 @@ python -m video2dataset.cli split-video data/videos/ --output data/images --fps 
 # 2. Автоматическая разметка (только для отсутствующих аннотаций)
 python -m video2dataset.cli auto-annotate --images data/images --labels data/labels --mode fill_missing
 
+python -m video2dataset.cli auto-annotate --images data/images --labels data/labels --mode fill_missing --model models\MediumVideocartFP16.pt --conf 0.7
+
 # 3. (Вариант с аугментацией) Аугментация для увеличения датасета
 python -m video2dataset.cli augment --images data/images --labels data/labels --output-images data/augmented/images --output-labels data/augmented/labels --num-augs 5
 
@@ -188,13 +190,51 @@ python -m video2dataset.cli make-yolo-config --images data/augmented/images --la
 python -m video2dataset.cli validate-labels --images data/images --labels data/labels
 
 # 4. (Вариант без аугментации) Создание конфига для обучения
-python -m video2dataset.cli make-yolo-config --images data/images --labels data/labels --output data.yaml
+python -m video2dataset.cli make-yolo-config --images dataset_annoyed\images --labels dataset_annoyed\labels --output data.yaml
 
 # 6. Обучение модели (с помощью ultralytics)
-yolo train data=data.yaml model=yolov8n.pt epochs=100 imgsz=640
+yolo train data=data.yaml model=yolov8n.pt epochs=10 imgsz=420
+
+yolo train data=data.yaml model=yolov8n.pt epochs=50 imgsz=640
+
+yolo train data=data.yaml model=yolov8n.pt epochs=100 imgsz=1024
 
 # 7. Просмотр датасета в веб-интерфейсе
 python -m video2dataset.cli view-dataset --images data/images --labels data/labels --port 8080
+
+## Автоматизированные скрипты
+
+### Подготовка датасета
+
+```bash
+# Полная подготовка датасета (разделение + data.yaml)
+python prepare_dataset.py
+
+# С кастомными параметрами
+python prepare_dataset.py --train-split 0.8 --val-split 0.15 --test-split 0.05 --force-recreate
+
+# Просмотр всех опций
+python prepare_dataset.py --help
+```
+
+### Обучение YOLO
+
+```bash
+# Обучение с подготовленным датасетом
+train_yolo.bat
+
+# Полная подготовка и обучение
+train_complete.bat
+```
+
+### Управление данными
+
+```bash
+# Фильтрация пустых аннотаций
+python filter_empty_annotations.py
+
+# Перемещение данных в dataset_annoyed
+python move_to_dataset_annoyed.py
 ```
 
 ## Требования

@@ -58,6 +58,9 @@ dataset_split/*/images/
 dataset_split/*/labels/
 dataset_split/*/*.cache
 
+# Dataset copies (large)
+dataset_annoyed/
+
 # Test data
 test_data/
 

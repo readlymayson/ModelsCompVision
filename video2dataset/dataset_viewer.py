@@ -91,12 +91,18 @@ def create_dataset_viewer_app(images_dir: Union[str, Path],
 
             # Получить или создать отфильтрованный список изображений
             if cache_key not in app.image_cache:
-                # Найти все изображения
+                # Найти все изображения (исключая дубликаты)
                 image_extensions = {'.jpg', '.jpeg', '.png', '.bmp'}
-                image_files = []
+                image_files = set()  # Используем set для исключения дублей
+
                 for ext in image_extensions:
-                    image_files.extend(images_dir.glob(f"**/*{ext}"))
-                    image_files.extend(images_dir.glob(f"**/*{ext.upper()}"))
+                    # Ищем файлы с расширением в нижнем регистре
+                    image_files.update(images_dir.glob(f"**/*{ext}"))
+                    # Ищем файлы с расширением в верхнем регистре
+                    image_files.update(images_dir.glob(f"**/*{ext.upper()}"))
+
+                # Преобразуем set обратно в список для дальнейшей обработки
+                image_files = list(image_files)
 
                 # Фильтрация по поиску
                 if search:
@@ -147,12 +153,18 @@ def create_dataset_viewer_app(images_dir: Union[str, Path],
 
             # Получить или создать отфильтрованный список изображений
             if cache_key not in app.image_cache:
-                # Найти все изображения
+                # Найти все изображения (исключая дубликаты)
                 image_extensions = {'.jpg', '.jpeg', '.png', '.bmp'}
-                image_files = []
+                image_files = set()  # Используем set для исключения дублей
+
                 for ext in image_extensions:
-                    image_files.extend(images_dir.glob(f"**/*{ext}"))
-                    image_files.extend(images_dir.glob(f"**/*{ext.upper()}"))
+                    # Ищем файлы с расширением в нижнем регистре
+                    image_files.update(images_dir.glob(f"**/*{ext}"))
+                    # Ищем файлы с расширением в верхнем регистре
+                    image_files.update(images_dir.glob(f"**/*{ext.upper()}"))
+
+                # Преобразуем set обратно в список для дальнейшей обработки
+                image_files = list(image_files)
 
                 # Фильтрация по поиску
                 if search:

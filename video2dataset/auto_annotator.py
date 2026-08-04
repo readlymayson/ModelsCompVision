@@ -131,6 +131,27 @@ class AutoAnnotator:
 
         return results
 
+    def _is_annotation_empty(self, label_path: Path) -> bool:
+        """
+        Проверяет, пуст ли файл аннотаций.
+
+        Args:
+            label_path: Путь к файлу аннотаций
+
+        Returns:
+            True если файл пустой или содержит только пустые строки
+        """
+        if not label_path.exists():
+            return True
+        
+        try:
+            with open(label_path, 'r', encoding='utf-8') as f:
+                content = f.read().strip()
+                return len(content) == 0
+        except Exception as e:
+            logger.warning(f"Ошибка при чтении файла {label_path}: {e}")
+            return False
+
     def run_auto_annotation(self, images_dir: Union[str, Path], labels_dir: Union[str, Path],
                            mode: str = 'fill_missing', backup_existing: bool = False) -> Dict[str, int]:
         """
@@ -187,10 +208,12 @@ class AutoAnnotator:
 
                 # Проверить существует ли уже аннотация
                 has_existing = label_path.exists()
+                is_empty = self._is_annotation_empty(label_path) if has_existing else True
 
                 should_process = False
                 if mode == 'fill_missing':
-                    should_process = not has_existing
+                    # Обрабатываем если файл не существует или пустой
+                    should_process = not has_existing or is_empty
                 elif mode == 'overwrite':
                     should_process = True
                 elif mode == 'backup':
