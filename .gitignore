@@ -131,3 +131,9 @@ $RECYCLE.BIN/
 
 
 
+
+# Local env file (force ignore even without slash)
+.env
+
+# Visual Studio
+.vs/
