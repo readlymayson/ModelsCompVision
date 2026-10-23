@@ -240,7 +240,11 @@ def create_dataset_viewer_app(images_dir: Union[str, Path],
             # Декодировать URL
             image_name = unquote(image_name)
 
-            image_path = images_dir / image_name
+            image_path = (images_dir / image_name).resolve()
+            # Защита от path traversal: проверяем, что файл внутри images_dir
+            if not image_path.is_relative_to(images_dir.resolve()):
+                return jsonify({'error': 'Доступ запрещён'}), 403
+
             if not image_path.exists():
                 return jsonify({'error': f'Изображение не найдено: {image_path}'}), 404
 
@@ -322,7 +326,11 @@ def create_dataset_viewer_app(images_dir: Union[str, Path],
             # Декодировать URL
             image_name = unquote(image_name)
 
-            image_path = images_dir / image_name
+            image_path = (images_dir / image_name).resolve()
+            # Защита от path traversal: проверяем, что файл внутри images_dir
+            if not image_path.is_relative_to(images_dir.resolve()):
+                return jsonify({'error': 'Доступ запрещён'}), 403
+
             if not image_path.exists():
                 return jsonify({'error': f'Изображение не найдено: {image_path}'}), 404
 

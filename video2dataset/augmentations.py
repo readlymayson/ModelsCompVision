@@ -263,7 +263,7 @@ class YOLOAugmenter:
                 # Создать аугментации
                 for aug_idx in range(num_augs_per_image):
                     # Генерировать имена файлов
-                    aug_img_name = "06d"
+                    aug_img_name = f"{img_path.stem}_aug_{aug_idx:06d}{img_path.suffix}"
                     aug_img_path = output_images_dir / aug_img_name
 
                     aug_label_name = f"{img_path.stem}_aug_{aug_idx:06d}.txt"

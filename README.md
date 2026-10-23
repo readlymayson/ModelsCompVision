@@ -173,7 +173,7 @@ python -m video2dataset.cli split-video data/videos/ --output data/images --fps 
 # 2. Автоматическая разметка (только для отсутствующих аннотаций)
 python -m video2dataset.cli auto-annotate --images data/images --labels data/labels --mode fill_missing
 
-python -m video2dataset.cli auto-annotate --images data/images --labels data/labels --mode fill_missing --model models\MediumVideocartFP16.pt --conf 0.7
+python -m video2dataset.cli auto-annotate --images data/images --labels data/labels --mode fill_missing --model yolov8n.pt --conf 0.7
 
 # 3. (Вариант с аугментацией) Аугментация для увеличения датасета
 python -m video2dataset.cli augment --images data/images --labels data/labels --output-images data/augmented/images --output-labels data/augmented/labels --num-augs 5
@@ -247,4 +247,6 @@ python move_to_dataset_annoyed.py
 
 ## Лицензия
 
-MIT License
+MIT License. См. файл [LICENSE](LICENSE).
+
+Copyright (c) 2025-2026 Egor Frolov
